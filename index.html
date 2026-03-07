@@ -3,59 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Clear Glass Games UI</title>
+    <title>Transparent Liquid Glass Hub</title>
     <style>
-        /* 1. Environment */
+        :root {
+            /* Default Background Theme */
+            --bg-color-1: #0f172a;
+            --bg-color-2: #1e1b4b;
+            --orb-1: #38bdf8;
+            --orb-2: #818cf8;
+        }
+
+        /* 1. Environment & Dynamic Background */
         body {
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #121214;
-            /* A slightly darker, sharper checkerboard to show off the glass clarity */
-            background-image: 
-                linear-gradient(45deg, #1c1c1f 25%, transparent 25%, transparent 75%, #1c1c1f 75%, #1c1c1f),
-                linear-gradient(45deg, #1c1c1f 25%, transparent 25%, transparent 75%, #1c1c1f 75%, #1c1c1f);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-color-1), var(--bg-color-2));
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            perspective: 1200px; /* Deepened the perspective for less distortion */
+            perspective: 1200px;
             color: white;
             -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            transition: background 0.8s ease;
         }
 
+        /* Ambient glowing orbs behind the glass to show off transparency */
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: var(--orb-1);
+            top: 10%; left: 20%;
+        }
+
+        .orb-2 {
+            width: 500px; height: 500px;
+            background: var(--orb-2);
+            bottom: 10%; right: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -50px) scale(1.2); }
+        }
+
+        /* 2. Layouts */
         .glass-layout {
-            display: flex;
-            gap: 40px;
-            align-items: center;
+            display: flex; gap: 40px; align-items: center; z-index: 10;
         }
 
         .left-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: flex; flex-direction: column; gap: 20px;
         }
 
-        /* 2. The Apple-Tier Clear Glass Physics */
+        /* 3. The Pristine Transparent Glass Physics */
         .glass {
-            /* Almost completely transparent fill */
-            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.001) 100%);
+            /* Almost 0% opacity for true transparency */
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.0) 100%);
             
-            /* High blur with a saturation boost mimics real thick glass refraction */
-            backdrop-filter: blur(20px) saturate(130%);
-            -webkit-backdrop-filter: blur(20px) saturate(130%);
+            /* Reduced blur so you can see the background shapes clearly */
+            backdrop-filter: blur(12px) saturate(140%);
+            -webkit-backdrop-filter: blur(12px) saturate(140%);
             
-            /* The "Thick Edge" technique: combination of crisp borders and inset shadows */
-            border: 1px solid rgba(255, 255, 255, 0.08); /* Base faint border */
-            border-top: 1.5px solid rgba(255, 255, 255, 0.45); /* Intense top light catch */
-            border-left: 1px solid rgba(255, 255, 255, 0.2); /* Side ambient light */
+            /* High-end edge lighting */
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            border-top: 1.5px solid rgba(255, 255, 255, 0.35); 
+            border-left: 1px solid rgba(255, 255, 255, 0.15); 
             
             box-shadow: 
-                inset 0px 1px 1px rgba(255, 255, 255, 0.3),  /* Sharp inner rim highlight */
-                inset 0px -1px 1px rgba(0, 0, 0, 0.4),       /* Dark bottom rim for thickness */
-                0 25px 45px rgba(0, 0, 0, 0.6),              /* Deep, soft drop shadow */
-                0 2px 5px rgba(0, 0, 0, 0.4);                /* Sharp contact shadow */
+                inset 0px 1px 1px rgba(255, 255, 255, 0.2),  
+                0 25px 45px rgba(0, 0, 0, 0.4),              
+                0 2px 5px rgba(0, 0, 0, 0.3);                
 
             position: relative;
             cursor: pointer;
@@ -70,25 +98,11 @@
             text-align: center;
         }
 
-        /* Ambient light boost on hover, not a bloom */
-        .glass:hover {
-            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.01) 100%);
-        }
-
-        /* The refined, sharper glare sweep */
+        /* The Glare Sweep */
         .glass::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%; 
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(
-                to right, 
-                rgba(255,255,255,0) 0%, 
-                rgba(255,255,255,0.2) 50%, /* Much softer, realistic glare */
-                rgba(255,255,255,0) 100%
-            );
+            content: ''; position: absolute; top: 0; left: -150%; 
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
             transform: skewX(-25deg) translateZ(0); 
             z-index: 10;
         }
@@ -97,9 +111,7 @@
             animation: shineSweep 0.8s ease-out forwards;
         }
 
-        @keyframes shineSweep {
-            100% { left: 200%; } 
-        }
+        @keyframes shineSweep { 100% { left: 200%; } }
 
         /* --- Shape Dimensions --- */
         .shape-wide { width: 260px; height: 150px; border-radius: 20px; }
@@ -109,81 +121,33 @@
 
         /* --- Inner Content --- */
         .content {
-            /* Pushes everything forward slightly */
             transform: translateZ(20px);
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            pointer-events: none; /* Allows hover state to pass to buttons */
-            transform-style: preserve-3d;
+            width: 100%; padding: 20px; box-sizing: border-box;
+            pointer-events: none; transform-style: preserve-3d;
         }
 
-        /* Typography */
-        h3 {
-            margin: 0 0 4px 0;
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.6);
-        }
+        h3 { margin: 0 0 4px 0; font-size: 1.3rem; font-weight: 600; letter-spacing: -0.5px; text-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+        p { margin: 0; font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
 
-        p {
-            margin: 0;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 500;
-        }
-
-        /* Game Thumbnails */
         .game-img {
-            width: calc(100% - 20px);
-            height: 110px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-top: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: calc(100% - 20px); height: 110px; object-fit: cover; border-radius: 12px; margin-top: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* --- THE 3D PLAY BUTTON --- */
+        /* The 3D Play Button */
         .play-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 24px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.7);
-            border-radius: 30px;
-            color: white;
-            font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            
-            /* Re-enable pointer events so it can be hovered */
-            pointer-events: auto; 
-            
-            /* The springy transition for the button popping out */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            
-            /* Starts floating naturally */
-            transform: translateZ(30px); 
+            display: inline-block; margin-top: 20px; padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 30px; color: white; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); pointer-events: auto; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateZ(30px); 
         }
 
-        /* The Button Hover Effect */
         .play-btn:hover {
-            /* Leaps drastically off the glass and scales up */
             transform: translateZ(70px) scale(1.15); 
-            background: rgba(255, 255, 255, 0.95); /* Turns solid white */
-            color: #000; /* Text goes black for contrast */
-            box-shadow: 
-                0 15px 25px rgba(0,0,0,0.5), 
-                0 0 20px rgba(255,255,255,0.3);
-            border-color: transparent;
+            background: rgba(255, 255, 255, 0.95); color: #000; 
+            box-shadow: 0 15px 25px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.2); border-color: transparent;
         }
 
         /* Specific Layout Tweaks */
@@ -194,12 +158,62 @@
         .shape-pill .content { display: flex; justify-content: center; align-items: center; padding: 0; }
         .shape-pill h3 { font-size: 1.1rem; margin: 0; }
         .shape-round .content h3 { font-size: 2.2rem; }
+
+        /* --- SETTINGS UI --- */
+        .settings-btn {
+            position: fixed; top: 30px; right: 30px;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; z-index: 100;
+        }
+
+        .settings-modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
+            width: 320px; height: 200px; padding: 30px; border-radius: 24px;
+            opacity: 0; pointer-events: none; z-index: 200;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; align-items: center; gap: 20px;
+        }
+
+        .settings-modal.active {
+            opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1);
+        }
+
+        .theme-options { display: flex; gap: 15px; margin-top: 10px; }
+        
+        .theme-swatch {
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.5); transition: transform 0.2s;
+        }
+        
+        .theme-swatch:hover { transform: scale(1.1); }
+        .theme-midnight { background: linear-gradient(135deg, #0f172a, #1e1b4b); }
+        .theme-aurora { background: linear-gradient(135deg, #134e5e, #71b280); }
+        .theme-crimson { background: linear-gradient(135deg, #4b134f, #c94b4b); }
+
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.6); }
+        .close-btn:hover { color: white; }
     </style>
 </head>
 <body>
 
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <div class="glass settings-btn" onclick="toggleSettings()">⚙️</div>
+
+    <div class="glass settings-modal" id="settingsMenu">
+        <div class="close-btn" onclick="toggleSettings()">✖</div>
+        <h3>Appearance</h3>
+        <p>Select Liquid Theme</p>
+        <div class="theme-options">
+            <div class="theme-swatch theme-midnight" onclick="changeTheme('#0f172a', '#1e1b4b', '#38bdf8', '#818cf8')"></div>
+            <div class="theme-swatch theme-aurora" onclick="changeTheme('#134e5e', '#71b280', '#a8ff78', '#78ffd6')"></div>
+            <div class="theme-swatch theme-crimson" onclick="changeTheme('#4b134f', '#c94b4b', '#ff9a9e', '#fecfef')"></div>
+        </div>
+    </div>
+
     <div class="glass-layout">
-        
         <div class="left-column">
             <div class="glass shape-wide">
                 <div class="content">
@@ -210,11 +224,8 @@
                     <div class="play-btn">Play</div>
                 </div>
             </div>
-
             <div class="glass shape-pill">
-                <div class="content">
-                    <h3>🔥 Popular Games</h3>
-                </div>
+                <div class="content"><h3>🔥 Popular Games</h3></div>
             </div>
         </div>
 
@@ -232,11 +243,25 @@
                 <h3>START</h3>
             </div>
         </div>
-
     </div>
 
     <script>
-        const glassPanels = document.querySelectorAll('.glass');
+        // --- 1. Settings & Theme Logic ---
+        function toggleSettings() {
+            document.getElementById('settingsMenu').classList.toggle('active');
+        }
+
+        function changeTheme(bg1, bg2, orb1, orb2) {
+            const root = document.documentElement;
+            // Instantly updates the CSS variables across the whole site
+            root.style.setProperty('--bg-color-1', bg1);
+            root.style.setProperty('--bg-color-2', bg2);
+            root.style.setProperty('--orb-1', orb1);
+            root.style.setProperty('--orb-2', orb2);
+        }
+
+        // --- 2. 3D Hover Physics (Same as before) ---
+        const glassPanels = document.querySelectorAll('.glass:not(#settingsMenu)');
 
         glassPanels.forEach(panel => {
             panel.addEventListener('mousemove', (e) => {
@@ -246,18 +271,15 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
 
-                /* --- DIALED BACK 3D EFFECT --- */
-                /* Changed multiplier from 15 to 8 for a subtle, high-end tilt */
                 const rotateX = ((y - centerY) / centerY) * -8; 
                 const rotateY = ((x - centerX) / centerX) * 8;
 
-                panel.style.transition = 'transform 0.1s ease-out, filter 0.3s ease';
-                /* Removed the scale(1.05) to keep it feeling heavy and realistic */
+                panel.style.transition = 'transform 0.1s ease-out';
                 panel.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
 
             panel.addEventListener('mouseleave', () => {
-                panel.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease';
+                panel.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
                 panel.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg)`;
             });
         });
