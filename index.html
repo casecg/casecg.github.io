@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Parallax Glass Game UI</title>
+    <title>Premium Clear Glass Games UI</title>
     <style>
-        /* 1. The Dark Checkerboard Background */
+        /* 1. Environment */
         body {
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #18181a;
+            background-color: #121214;
+            /* A slightly darker, sharper checkerboard to show off the glass clarity */
             background-image: 
-                linear-gradient(45deg, #222225 25%, transparent 25%, transparent 75%, #222225 75%, #222225),
-                linear-gradient(45deg, #222225 25%, transparent 25%, transparent 75%, #222225 75%, #222225);
-            background-size: 16px 16px;
-            background-position: 0 0, 8px 8px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            perspective: 1000px;
+                linear-gradient(45deg, #1c1c1f 25%, transparent 25%, transparent 75%, #1c1c1f 75%, #1c1c1f),
+                linear-gradient(45deg, #1c1c1f 25%, transparent 25%, transparent 75%, #1c1c1f 75%, #1c1c1f);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            perspective: 1200px; /* Deepened the perspective for less distortion */
             color: white;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 2. Layout Container */
         .glass-layout {
             display: flex;
             gap: 40px;
@@ -36,22 +37,32 @@
             gap: 20px;
         }
 
-        /* 3. The Core Glass Physics */
+        /* 2. The Apple-Tier Clear Glass Physics */
         .glass {
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            /* Almost completely transparent fill */
+            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.001) 100%);
+            
+            /* High blur with a saturation boost mimics real thick glass refraction */
+            backdrop-filter: blur(20px) saturate(130%);
+            -webkit-backdrop-filter: blur(20px) saturate(130%);
+            
+            /* The "Thick Edge" technique: combination of crisp borders and inset shadows */
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Base faint border */
+            border-top: 1.5px solid rgba(255, 255, 255, 0.45); /* Intense top light catch */
+            border-left: 1px solid rgba(255, 255, 255, 0.2); /* Side ambient light */
+            
+            box-shadow: 
+                inset 0px 1px 1px rgba(255, 255, 255, 0.3),  /* Sharp inner rim highlight */
+                inset 0px -1px 1px rgba(0, 0, 0, 0.4),       /* Dark bottom rim for thickness */
+                0 25px 45px rgba(0, 0, 0, 0.6),              /* Deep, soft drop shadow */
+                0 2px 5px rgba(0, 0, 0, 0.4);                /* Sharp contact shadow */
+
             position: relative;
             cursor: pointer;
             overflow: hidden; 
-            
-            /* Preserves the 3D space for the floating content inside */
             transform-style: preserve-3d; 
             will-change: transform;
-            transition: filter 0.3s ease;
             
-            /* Center the content */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -59,11 +70,12 @@
             text-align: center;
         }
 
+        /* Ambient light boost on hover, not a bloom */
         .glass:hover {
-            filter: brightness(1.2); 
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.01) 100%);
         }
 
-        /* The Hidden Shine Element */
+        /* The refined, sharper glare sweep */
         .glass::before {
             content: '';
             position: absolute;
@@ -74,116 +86,114 @@
             background: linear-gradient(
                 to right, 
                 rgba(255,255,255,0) 0%, 
-                rgba(255,255,255,0.4) 50%, 
+                rgba(255,255,255,0.2) 50%, /* Much softer, realistic glare */
                 rgba(255,255,255,0) 100%
             );
-            transform: skewX(-25deg) translateZ(0); /* Keep shine flat on the glass */
+            transform: skewX(-25deg) translateZ(0); 
             z-index: 10;
         }
 
         .glass:hover::before {
-            animation: shineSweep 0.6s ease-out forwards;
+            animation: shineSweep 0.8s ease-out forwards;
         }
 
         @keyframes shineSweep {
             100% { left: 200%; } 
         }
 
-        /* 4. Glass Edge Lighting Shadows */
-        .glass-rect {
-            box-shadow: 
-                inset 0px 2px 3px rgba(255, 255, 255, 0.9), 
-                inset 0px -1px 2px rgba(255, 255, 255, 0.1), 
-                0px -4px 15px rgba(255, 255, 255, 0.4),      
-                0px 5px 15px rgba(0, 0, 0, 0.4);             
-        }
-
-        .glass-circle {
-            box-shadow: 
-                inset 3px 3px 5px rgba(255, 255, 255, 0.9), 
-                inset -1px -1px 3px rgba(255, 255, 255, 0.1), 
-                -4px -4px 20px rgba(255, 255, 255, 0.4),      
-                5px 5px 20px rgba(0, 0, 0, 0.4);             
-        }
-
         /* --- Shape Dimensions --- */
-        .shape-wide { width: 240px; height: 140px; border-radius: 12px; }
-        .shape-pill { width: 240px; height: 50px; border-radius: 25px; }
-        .shape-tall { width: 180px; height: 260px; border-radius: 12px; }
-        .shape-round { width: 260px; height: 260px; border-radius: 50%; }
+        .shape-wide { width: 260px; height: 150px; border-radius: 20px; }
+        .shape-pill { width: 260px; height: 60px; border-radius: 30px; }
+        .shape-tall { width: 200px; height: 280px; border-radius: 24px; }
+        .shape-round { width: 280px; height: 280px; border-radius: 50%; }
 
-        /* --- NEW: Inner Content (The Floating Elements) --- */
+        /* --- Inner Content --- */
         .content {
-            /* This makes the text and images float 30px above the glass */
-            transform: translateZ(30px);
+            /* Pushes everything forward slightly */
+            transform: translateZ(20px);
             width: 100%;
-            padding: 15px;
+            padding: 20px;
             box-sizing: border-box;
-            pointer-events: none; /* Lets the hover effect pass through to the glass */
+            pointer-events: none; /* Allows hover state to pass to buttons */
+            transform-style: preserve-3d;
         }
 
         /* Typography */
         h3 {
-            margin: 0 0 5px 0;
-            font-size: 1.2rem;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            letter-spacing: 0.5px;
+            margin: 0 0 4px 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.6);
         }
 
         p {
             margin: 0;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 500;
         }
 
         /* Game Thumbnails */
         .game-img {
             width: calc(100% - 20px);
-            height: 100px;
+            height: 110px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-top: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border-radius: 12px;
+            margin-top: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Sleek Glass Buttons */
+        /* --- THE 3D PLAY BUTTON --- */
         .play-btn {
             display: inline-block;
-            margin-top: 15px;
-            padding: 8px 20px;
+            margin-top: 20px;
+            padding: 10px 24px;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
             color: white;
-            font-weight: bold;
-            font-size: 0.8rem;
+            font-weight: 700;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            
+            /* Re-enable pointer events so it can be hovered */
+            pointer-events: auto; 
+            
+            /* The springy transition for the button popping out */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+            /* Starts floating naturally */
+            transform: translateZ(30px); 
+        }
+
+        /* The Button Hover Effect */
+        .play-btn:hover {
+            /* Leaps drastically off the glass and scales up */
+            transform: translateZ(70px) scale(1.15); 
+            background: rgba(255, 255, 255, 0.95); /* Turns solid white */
+            color: #000; /* Text goes black for contrast */
+            box-shadow: 
+                0 15px 25px rgba(0,0,0,0.5), 
+                0 0 20px rgba(255,255,255,0.3);
+            border-color: transparent;
         }
 
         /* Specific Layout Tweaks */
-        .shape-wide .content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .shape-wide h3 { font-size: 1.1rem; text-align: left; }
+        .shape-wide .content { display: flex; justify-content: space-between; align-items: center; }
+        .shape-wide h3 { font-size: 1.2rem; text-align: left; }
         .shape-wide p { text-align: left; }
         .shape-wide .play-btn { margin-top: 0; }
-
-        .shape-pill .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-        }
-        
-        .shape-pill h3 { font-size: 1rem; margin: 0; }
-
-        .shape-round .content h3 { font-size: 2rem; }
+        .shape-pill .content { display: flex; justify-content: center; align-items: center; padding: 0; }
+        .shape-pill h3 { font-size: 1.1rem; margin: 0; }
+        .shape-round .content h3 { font-size: 2.2rem; }
     </style>
 </head>
 <body>
@@ -191,7 +201,7 @@
     <div class="glass-layout">
         
         <div class="left-column">
-            <div class="glass glass-rect shape-wide">
+            <div class="glass shape-wide">
                 <div class="content">
                     <div>
                         <h3>Neon Drift</h3>
@@ -201,22 +211,22 @@
                 </div>
             </div>
 
-            <div class="glass glass-rect shape-pill">
+            <div class="glass shape-pill">
                 <div class="content">
                     <h3>🔥 Popular Games</h3>
                 </div>
             </div>
         </div>
 
-        <div class="glass glass-rect shape-tall">
+        <div class="glass shape-tall">
             <div class="content">
-                <h3>Cyber <br>Rogue</h3>
-                <img src="https://via.placeholder.com/150x100/333/fff?text=Thumb" alt="Game" class="game-img">
+                <h3>Cyber<br>Rogue</h3>
+                <img src="https://via.placeholder.com/160x110/222/fff?text=Thumb" alt="Game" class="game-img">
                 <div class="play-btn">Play</div>
             </div>
         </div>
 
-        <div class="glass glass-circle shape-round">
+        <div class="glass shape-round">
             <div class="content">
                 <p>Quick Match</p>
                 <h3>START</h3>
@@ -236,16 +246,19 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
 
-                const rotateX = ((y - centerY) / centerY) * -15; 
-                const rotateY = ((x - centerX) / centerX) * 15;
+                /* --- DIALED BACK 3D EFFECT --- */
+                /* Changed multiplier from 15 to 8 for a subtle, high-end tilt */
+                const rotateX = ((y - centerY) / centerY) * -8; 
+                const rotateY = ((x - centerX) / centerX) * 8;
 
                 panel.style.transition = 'transform 0.1s ease-out, filter 0.3s ease';
-                panel.style.transform = `perspective(1000px) scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                /* Removed the scale(1.05) to keep it feeling heavy and realistic */
+                panel.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
 
             panel.addEventListener('mouseleave', () => {
-                panel.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease';
-                panel.style.transform = `perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)`;
+                panel.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease';
+                panel.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg)`;
             });
         });
     </script>
