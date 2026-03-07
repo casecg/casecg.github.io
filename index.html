@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chirk's UBG</title>
+    <title>Chirk UBG</title>
     <style>
         :root {
             /* Default Theme: Muted Slate (Desaturated Midnight) */
@@ -40,22 +40,16 @@
 
         /* The Clearer, Whiter Glass Physics */
         .glass {
-            /* Higher white starting opacity, but fades out quickly for clarity */
             background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 100%);
-            
-            /* Reduced blur (was 16px, now 10px) to make it clearer */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            
             border: 1px solid rgba(255, 255, 255, 0.25); 
             border-top: 1.5px solid rgba(255, 255, 255, 0.6); 
             border-left: 1px solid rgba(255, 255, 255, 0.35); 
-            
             box-shadow: 
                 inset 0px 1px 1px rgba(255, 255, 255, 0.5),  
                 0 25px 45px rgba(0, 0, 0, 0.2),              
                 0 2px 5px rgba(0, 0, 0, 0.15);                
-
             position: relative; cursor: pointer; overflow: hidden; 
             transform-style: preserve-3d; will-change: transform;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
@@ -67,19 +61,8 @@
             transform: skewX(-25deg) translateZ(0); z-index: 10;
         }
         .glass:hover::before { animation: shineSweep 0.8s ease-out forwards; }
-       @keyframes shineSweep { 100% { left: 200%; } }
-        
-<div class="glass game-card">
-    <div class="content">
-        <img src="csgo.png" alt="Case Clicker" class="game-img">
-        <div class="text-group">
-            <h3>CaseClicker</h3>
-            <p>Incremental</p>
-        </div>
-        <a href="play-caseclicker.html" class="play-btn" style="text-decoration: none;">Play</a>
-    </div>
-</div>
-        
+        @keyframes shineSweep { 100% { left: 200%; } }
+
         .game-card { width: 220px; height: 280px; border-radius: 24px; }
 
         .content {
@@ -88,7 +71,6 @@
             display: flex; flex-direction: column; justify-content: space-between; height: 100%;
         }
 
-        /* Stronger text shadows to remain readable on the new lighter backgrounds */
         .text-group { margin-top: 5px; }
         h3 { margin: 0 0 4px 0; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.5px; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
         p { margin: 0; font-size: 0.7rem; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
@@ -147,14 +129,12 @@
         }
         .theme-swatch:hover { transform: scale(1.15); }
         
-        /* Desaturated / Pastel Themes */
         .theme-slate { background: linear-gradient(135deg, #475569, #1e293b); }
         .theme-sage { background: linear-gradient(135deg, #7fb09e, #3e5c54); }
         .theme-rose { background: linear-gradient(135deg, #b56576, #6d3b47); }
         .theme-peach { background: linear-gradient(135deg, #e29578, #8c5341); }
         .theme-lavender { background: linear-gradient(135deg, #9d8189, #4a3b42); }
         .theme-teal { background: linear-gradient(135deg, #6b9080, #364941); }
-        /* The New Snow/Ice White Theme */
         .theme-snow { background: linear-gradient(135deg, #e2e8f0, #94a3b8); }
 
     </style>
@@ -182,14 +162,15 @@
     </div>
 
     <div class="glass-layout">
+        
         <div class="glass game-card">
             <div class="content">
-                <img src="https://via.placeholder.com/200x120/222/fff?text=Thumb" alt="Game" class="game-img">
+                <img src="csgo.png" alt="Case Clicker" class="game-img" onerror="this.src='https://via.placeholder.com/200x120/111/fff?text=CaseClicker'">
                 <div class="text-group">
-                    <h3>Neon Drift</h3>
-                    <p>Racing</p>
+                    <h3>CaseClicker</h3>
+                    <p>Incremental</p>
                 </div>
-                <a href="drift-game.html" class="play-btn" style="text-decoration: none;">Play</a>
+                <a href="play-caseclicker.html" class="play-btn" style="text-decoration: none;">Play</a>
             </div>
         </div>
 
@@ -200,7 +181,7 @@
                     <h3>Cyber Rogue</h3>
                     <p>Action RPG</p>
                 </div>
-                <a href="rogue-game.html" class="play-btn" style="text-decoration: none;">Play</a>
+                <a href="#" class="play-btn" style="text-decoration: none;">Play</a>
             </div>
         </div>
 
@@ -211,9 +192,10 @@
                     <h3>Astro Blitz</h3>
                     <p>Shooter</p>
                 </div>
-                <a href="astro-game.html" class="play-btn" style="text-decoration: none;">Play</a>
+                <a href="#" class="play-btn" style="text-decoration: none;">Play</a>
             </div>
         </div>
+
     </div>
 
     <script>
