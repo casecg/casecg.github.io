@@ -16,4 +16,139 @@
             align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #4c566a, #2e3440, #3b4252); /* Smooth dark gradient */
-            overflow: hidden; /* Prevent scroll for background animation
+            overflow: hidden; /* Prevent scroll for background animation */
+        }
+
+        /* Animated Background Blobs (for that dynamic "liquid" feel) */
+        .background-blob {
+            position: absolute;
+            background: linear-gradient(135deg, #88c0d0, #5e81ac); /* Icy blue gradient */
+            border-radius: 50%;
+            opacity: 0.3; /* Subtle translucency */
+            filter: blur(80px); /* Massive blur for soft glow */
+            animation: floatBlob 15s infinite ease-in-out alternate;
+        }
+
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            left: -50px;
+            animation-duration: 18s;
+            background: linear-gradient(135deg, #bf616a, #d08770); /* Warm red/orange */
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            right: -100px;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            width: 250px;
+            height: 250px;
+            top: 40%;
+            left: 20%;
+            animation-duration: 16s;
+            animation-delay: -10s;
+            background: linear-gradient(135deg, #a3be8c, #ebcb8b); /* Green/yellow */
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(20px, 30px) scale(1.1); }
+        }
+
+        /* The Liquid Glass Card */
+        .liquid-glass-card {
+            position: relative;
+            z-index: 10; /* Ensure card is above blobs */
+            width: 320px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.08); /* More subtle background translucency */
+            backdrop-filter: blur(25px) saturate(180%); /* Stronger blur and saturate */
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-radius: 30px; /* Very rounded corners */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Finer, almost invisible border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Softer, wider shadow */
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth ease-out-quad */
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .liquid-glass-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Internal Card Elements */
+        .card-image {
+            width: 100%;
+            height: 190px;
+            border-radius: 20px; /* Rounded image inside card */
+            object-fit: cover;
+            margin-bottom: 20px;
+            filter: brightness(0.95); /* Slightly muted for integration */
+            transition: filter 0.3s ease;
+        }
+
+        .liquid-glass-card:hover .card-image {
+            filter: brightness(1.05); /* Brighter on hover */
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px; /* Tighter for Apple look */
+            background: linear-gradient(45deg, #a7d9ff, #e0f2fe); /* Subtle text gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-subtitle {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+
+        .play-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #74aaff, #507bff); /* Vibrant blue gradient */
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(80, 123, 255, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .play-button:hover {
+            background: linear-gradient(90deg, #507bff, #3a5edb);
+            box-shadow: 0 6px 20px rgba(80, 123, 255, 0.6);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+    <div class="background-blob blob-3"></div>
+
+    <div class="liquid-glass-card">
+        <img src="https://via.placeholder.com/320x190/333333/FFFFFF?text=Awesome+Game" alt="Game Thumbnail" class="card-image">
+        <h3 class="card-title">Starlight Odyssey</h3>
+        <p class="card-subtitle">Explore distant galaxies in this epic adventure.</p>
+        <a href="#" class="play-button">Launch Game</a>
+    </div>
+
+</body>
+</html>
