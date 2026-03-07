@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Liquid Glass Panels</title>
+    <title>3D Parallax Glass Game UI</title>
     <style>
         /* 1. The Dark Checkerboard Background */
         body {
@@ -18,7 +18,9 @@
                 linear-gradient(45deg, #222225 25%, transparent 25%, transparent 75%, #222225 75%, #222225);
             background-size: 16px 16px;
             background-position: 0 0, 8px 8px;
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            perspective: 1000px;
+            color: white;
         }
 
         /* 2. Layout Container */
@@ -34,55 +36,60 @@
             gap: 20px;
         }
 
-        /* 3. The Core Glass Physics & Interactivity */
+        /* 3. The Core Glass Physics */
         .glass {
             background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
+            cursor: pointer;
+            overflow: hidden; 
             
-            /* NEW: Setup for Hover & Shine */
-            cursor: pointer; /* Makes the mouse a pointing hand */
-            overflow: hidden; /* Keeps the shine locked inside the rounded corners */
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
+            /* Preserves the 3D space for the floating content inside */
+            transform-style: preserve-3d; 
+            will-change: transform;
+            transition: filter 0.3s ease;
+            
+            /* Center the content */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
-        /* NEW: The Hover Action (Grow & Glow) */
         .glass:hover {
-            transform: scale(1.05) translateY(-5px); /* Grows by 5% and lifts up slightly */
-            filter: brightness(1.2); /* Makes the existing edge-lighting 20% brighter */
+            filter: brightness(1.2); 
         }
 
-        /* NEW: The Hidden Shine Element */
+        /* The Hidden Shine Element */
         .glass::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -150%; /* Starts hidden way off to the left */
+            left: -150%; 
             width: 50%;
             height: 100%;
             background: linear-gradient(
                 to right, 
                 rgba(255,255,255,0) 0%, 
-                rgba(255,255,255,0.4) 50%, /* The bright center of the shine */
+                rgba(255,255,255,0.4) 50%, 
                 rgba(255,255,255,0) 100%
             );
-            transform: skewX(-25deg); /* Angles the shine like a glare */
+            transform: skewX(-25deg) translateZ(0); /* Keep shine flat on the glass */
             z-index: 10;
         }
 
-        /* NEW: Triggering the Shine Animation on Hover */
         .glass:hover::before {
             animation: shineSweep 0.6s ease-out forwards;
         }
 
-        /* NEW: The Animation Keyframes */
         @keyframes shineSweep {
-            100% { left: 200%; } /* Sweeps it across to the right side */
+            100% { left: 200%; } 
         }
 
-        /* 4. Rectangular/Pill Shapes (Top Light Source) */
+        /* 4. Glass Edge Lighting Shadows */
         .glass-rect {
             box-shadow: 
                 inset 0px 2px 3px rgba(255, 255, 255, 0.9), 
@@ -91,7 +98,6 @@
                 0px 5px 15px rgba(0, 0, 0, 0.4);             
         }
 
-        /* 5. Circular Shape (Top-Left Light Source) */
         .glass-circle {
             box-shadow: 
                 inset 3px 3px 5px rgba(255, 255, 255, 0.9), 
@@ -100,12 +106,84 @@
                 5px 5px 20px rgba(0, 0, 0, 0.4);             
         }
 
-        /* --- Specific Shape Dimensions --- */
+        /* --- Shape Dimensions --- */
         .shape-wide { width: 240px; height: 140px; border-radius: 12px; }
         .shape-pill { width: 240px; height: 50px; border-radius: 25px; }
         .shape-tall { width: 180px; height: 260px; border-radius: 12px; }
         .shape-round { width: 260px; height: 260px; border-radius: 50%; }
 
+        /* --- NEW: Inner Content (The Floating Elements) --- */
+        .content {
+            /* This makes the text and images float 30px above the glass */
+            transform: translateZ(30px);
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            pointer-events: none; /* Lets the hover effect pass through to the glass */
+        }
+
+        /* Typography */
+        h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Game Thumbnails */
+        .game-img {
+            width: calc(100% - 20px);
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Sleek Glass Buttons */
+        .play-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Specific Layout Tweaks */
+        .shape-wide .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .shape-wide h3 { font-size: 1.1rem; text-align: left; }
+        .shape-wide p { text-align: left; }
+        .shape-wide .play-btn { margin-top: 0; }
+
+        .shape-pill .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+        
+        .shape-pill h3 { font-size: 1rem; margin: 0; }
+
+        .shape-round .content h3 { font-size: 2rem; }
     </style>
 </head>
 <body>
@@ -113,15 +191,63 @@
     <div class="glass-layout">
         
         <div class="left-column">
-            <div class="glass glass-rect shape-wide"></div>
-            <div class="glass glass-rect shape-pill"></div>
+            <div class="glass glass-rect shape-wide">
+                <div class="content">
+                    <div>
+                        <h3>Neon Drift</h3>
+                        <p>Racing</p>
+                    </div>
+                    <div class="play-btn">Play</div>
+                </div>
+            </div>
+
+            <div class="glass glass-rect shape-pill">
+                <div class="content">
+                    <h3>🔥 Popular Games</h3>
+                </div>
+            </div>
         </div>
 
-        <div class="glass glass-rect shape-tall"></div>
+        <div class="glass glass-rect shape-tall">
+            <div class="content">
+                <h3>Cyber <br>Rogue</h3>
+                <img src="https://via.placeholder.com/150x100/333/fff?text=Thumb" alt="Game" class="game-img">
+                <div class="play-btn">Play</div>
+            </div>
+        </div>
 
-        <div class="glass glass-circle shape-round"></div>
+        <div class="glass glass-circle shape-round">
+            <div class="content">
+                <p>Quick Match</p>
+                <h3>START</h3>
+            </div>
+        </div>
 
     </div>
 
+    <script>
+        const glassPanels = document.querySelectorAll('.glass');
+
+        glassPanels.forEach(panel => {
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -15; 
+                const rotateY = ((x - centerX) / centerX) * 15;
+
+                panel.style.transition = 'transform 0.1s ease-out, filter 0.3s ease';
+                panel.style.transform = `perspective(1000px) scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            panel.addEventListener('mouseleave', () => {
+                panel.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease';
+                panel.style.transform = `perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+    </script>
 </body>
 </html>
