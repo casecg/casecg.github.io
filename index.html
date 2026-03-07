@@ -3,154 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple Liquid Glass UI</title>
+    <title>BigHgames</title>
     <style>
-        :root {
-            /* Apple-style colors */
-            --glass-bg: rgba(255, 255, 255, 0.25);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --accent-blue: #0071e3;
-            --text-main: #ffffff;
-        }
-
+        /* 1. The Dark Checkerboard Background (Matches your image) */
         body {
             margin: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000; /* Black background makes the glass pop */
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-            overflow: hidden;
+            height: 100vh;
+            background-color: #18181a;
+            background-image: 
+                linear-gradient(45deg, #222225 25%, transparent 25%, transparent 75%, #222225 75%, #222225),
+                linear-gradient(45deg, #222225 25%, transparent 25%, transparent 75%, #222225 75%, #222225);
+            background-size: 16px 16px;
+            background-position: 0 0, 8px 8px;
+            font-family: sans-serif;
         }
 
-        /* Animated Background for Reflection Depth */
-        .bg-gradient {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1d1d1f 0%, #000000 100%);
-            z-index: -2;
+        /* 2. Layout Container to arrange them exactly like the picture */
+        .glass-layout {
+            display: flex;
+            gap: 40px;
+            align-items: center;
         }
 
-        .liquid-blob {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #0071e3, #42a5f5);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0.6;
-            animation: move 20s infinite alternate;
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        @keyframes move {
-            from { transform: translate(-20%, -20%); }
-            to { transform: translate(20%, 20%); }
-        }
-
-        /* The Glass Card */
-        .card {
+        /* 3. The Core Glass Physics */
+        .glass {
+            background: rgba(255, 255, 255, 0.01); /* Almost invisible fill */
+            backdrop-filter: blur(8px); /* The optical distortion */
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Faint base border */
             position: relative;
-            width: 340px;
-            padding: 30px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(40px) saturate(200%); /* Stronger blur & saturation */
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border-radius: 40px;
-            border: 1px solid var(--glass-border);
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            overflow: hidden; /* Clips the reflection shimmer */
-            transition: transform 0.3s ease;
         }
 
-        /* The "Reflecting" Light Streak */
-        .card::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg, 
-                transparent, 
-                rgba(255,255,255,0.1) 45%, 
-                rgba(255,255,255,0.4) 50%, 
-                rgba(255,255,255,0.1) 55%, 
-                transparent
-            );
-            transform: rotate(30deg);
-            animation: reflection 6s infinite;
+        /* 4. Rectangular/Pill Shapes (Top Light Source) */
+        .glass-rect {
+            /* The magic edge-lighting and glow */
+            box-shadow: 
+                inset 0px 2px 3px rgba(255, 255, 255, 0.9), /* Intense top inner light */
+                inset 0px -1px 2px rgba(255, 255, 255, 0.1), /* Faint bottom reflection */
+                0px -4px 15px rgba(255, 255, 255, 0.4),      /* Glowing top outer aura */
+                0px 5px 15px rgba(0, 0, 0, 0.4);             /* Drop shadow for depth */
         }
 
-        @keyframes reflection {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) rotate(30deg); }
+        /* 5. Circular Shape (Top-Left Light Source) */
+        .glass-circle {
+            /* Adjusted so the light hits the curve from the top-left */
+            box-shadow: 
+                inset 3px 3px 5px rgba(255, 255, 255, 0.9), 
+                inset -1px -1px 3px rgba(255, 255, 255, 0.1), 
+                -4px -4px 20px rgba(255, 255, 255, 0.4),      
+                5px 5px 20px rgba(0, 0, 0, 0.4);             
         }
 
-        .card:hover {
-            transform: scale(1.02) translateY(-5px);
+        /* --- Specific Shape Dimensions --- */
+        
+        .shape-wide {
+            width: 240px;
+            height: 140px;
+            border-radius: 12px;
         }
 
-        /* Typography */
-        h1 {
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: -0.022em; /* Apple's signature tight spacing */
-            margin: 20px 0 10px;
-            color: var(--text-main);
+        .shape-pill {
+            width: 240px;
+            height: 50px;
+            border-radius: 25px; /* Creates the pill shape */
         }
 
-        p {
-            font-size: 15px;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.4;
-            margin-bottom: 25px;
-            font-weight: 400;
+        .shape-tall {
+            width: 180px;
+            height: 260px;
+            border-radius: 12px;
         }
 
-        /* Play Button */
-        .btn {
-            display: inline-block;
-            background: #fff;
-            color: #000;
-            padding: 12px 35px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover {
-            background: var(--accent-blue);
-            color: #fff;
-            box-shadow: 0 0 20px rgba(0, 113, 227, 0.4);
-        }
-
-        .game-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #fff, #d1d1d1);
-            margin: 0 auto;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .shape-round {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%; /* Creates the circle */
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-gradient"></div>
-    <div class="liquid-blob"></div>
+    <div class="glass-layout">
+        
+        <div class="left-column">
+            <div class="glass glass-rect shape-wide"></div>
+            <div class="glass glass-rect shape-pill"></div>
+        </div>
 
-    <div class="card">
-        <div class="game-icon"></div>
-        <h1>Game Title</h1>
-        <p>Experience the next generation of unblocked gaming with ultra-smooth visuals.</p>
-        <a href="#" class="btn">Play Now</a>
+        <div class="glass glass-rect shape-tall"></div>
+
+        <div class="glass glass-circle shape-round"></div>
+
     </div>
 
 </body>
