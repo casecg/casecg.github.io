@@ -3,34 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>caseg hub</title>
+    <title>Clear Ice Glass Hub</title>
     <style>
         :root {
-            /* Default Background Theme */
-            --bg-color-1: #0f172a;
-            --bg-color-2: #1e1b4b;
-            --orb-1: #38bdf8;
-            --orb-2: #818cf8;
+            /* Default Theme: Muted Slate (Desaturated Midnight) */
+            --bg-color-1: #475569;
+            --bg-color-2: #1e293b;
+            --orb-1: #94a3b8;
+            --orb-2: #64748b;
         }
 
-        /* 1. Environment & Dynamic Background */
         body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;
             background: linear-gradient(135deg, var(--bg-color-1), var(--bg-color-2));
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            perspective: 1200px;
-            color: white;
-            -webkit-font-smoothing: antialiased;
-            overflow: hidden;
-            transition: background 0.8s ease;
+            perspective: 1200px; color: white; -webkit-font-smoothing: antialiased;
+            overflow: hidden; transition: background 0.8s ease;
         }
 
         .ambient-orb {
-            position: absolute; border-radius: 50%; filter: blur(90px); z-index: -1; opacity: 0.7;
+            position: absolute; border-radius: 50%; filter: blur(90px); z-index: -1; opacity: 0.8;
             animation: float 20s infinite alternate ease-in-out;
         }
         .orb-1 { width: 450px; height: 450px; background: var(--orb-1); top: 5%; left: 15%; }
@@ -41,77 +33,74 @@
             100% { transform: translate(60px, -60px) scale(1.15); }
         }
 
-        /* 2. Layouts */
         .glass-layout {
             display: flex; gap: 25px; align-items: center; justify-content: center; z-index: 10; flex-wrap: wrap;
             max-width: 1000px;
         }
 
-        /* 3. The Brighter, Whiter Glass Physics */
+        /* The Clearer, Whiter Glass Physics */
         .glass {
-            /* Increased white opacity for that frosted Apple look */
-            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+            /* Higher white starting opacity, but fades out quickly for clarity */
+            background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 100%);
             
-            /* High blur to smooth out the whiteness */
-            backdrop-filter: blur(16px) saturate(140%);
-            -webkit-backdrop-filter: blur(16px) saturate(140%);
+            /* Reduced blur (was 16px, now 10px) to make it clearer */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             
-            /* Stronger edge lighting to match the brighter glass */
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            border-top: 1.5px solid rgba(255, 255, 255, 0.5); 
-            border-left: 1px solid rgba(255, 255, 255, 0.3); 
+            border: 1px solid rgba(255, 255, 255, 0.25); 
+            border-top: 1.5px solid rgba(255, 255, 255, 0.6); 
+            border-left: 1px solid rgba(255, 255, 255, 0.35); 
             
             box-shadow: 
-                inset 0px 1px 1px rgba(255, 255, 255, 0.4),  
-                0 25px 45px rgba(0, 0, 0, 0.3),              
-                0 2px 5px rgba(0, 0, 0, 0.2);                
+                inset 0px 1px 1px rgba(255, 255, 255, 0.5),  
+                0 25px 45px rgba(0, 0, 0, 0.2),              
+                0 2px 5px rgba(0, 0, 0, 0.15);                
 
             position: relative; cursor: pointer; overflow: hidden; 
             transform-style: preserve-3d; will-change: transform;
-            
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
 
         .glass::before {
             content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
             transform: skewX(-25deg) translateZ(0); z-index: 10;
         }
         .glass:hover::before { animation: shineSweep 0.8s ease-out forwards; }
         @keyframes shineSweep { 100% { left: 200%; } }
 
-        /* --- Uniform Game Cards --- */
         .game-card { width: 220px; height: 280px; border-radius: 24px; }
 
-        /* --- Inner Content --- */
         .content {
             transform: translateZ(20px); width: 100%; padding: 20px; box-sizing: border-box;
             pointer-events: none; transform-style: preserve-3d;
             display: flex; flex-direction: column; justify-content: space-between; height: 100%;
         }
 
+        /* Stronger text shadows to remain readable on the new lighter backgrounds */
         .text-group { margin-top: 5px; }
-        h3 { margin: 0 0 4px 0; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.5px; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        p { margin: 0; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; }
+        h3 { margin: 0 0 4px 0; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.5px; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
+        p { margin: 0; font-size: 0.7rem; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
 
         .game-img {
             width: 100%; height: 120px; object-fit: cover; border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2); border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .play-btn {
             display: inline-block; padding: 8px 20px; margin: 0 auto;
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4); border-top: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 30px; color: white; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); pointer-events: auto; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.4); pointer-events: auto; 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateZ(30px); 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
 
         .play-btn:hover {
             transform: translateZ(70px) scale(1.15); 
-            background: rgba(255, 255, 255, 0.95); color: #000; 
-            box-shadow: 0 15px 25px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.4); border-color: transparent;
+            background: rgba(255, 255, 255, 0.95); color: #000; text-shadow: none;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.5); border-color: transparent;
         }
 
         /* --- SETTINGS UI --- */
@@ -130,41 +119,33 @@
 
         .settings-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
 
-        /* Mac-Style Close Button */
         .close-btn { 
-            position: absolute; top: 15px; left: 15px; 
-            width: 12px; height: 12px; border-radius: 50%; 
-            background-color: #ff5f56; border: 1px solid #e0443e;
-            cursor: pointer; display: flex; justify-content: center; align-items: center;
-            color: transparent; font-size: 8px; font-weight: bold; line-height: 1;
+            position: absolute; top: 15px; left: 15px; width: 12px; height: 12px; border-radius: 50%; 
+            background-color: #ff5f56; border: 1px solid #e0443e; cursor: pointer; display: flex; 
+            justify-content: center; align-items: center; color: transparent; font-size: 8px; font-weight: bold; line-height: 1;
             transition: background-color 0.2s;
         }
-        .close-btn::before {
-            content: "✕";
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-        .close-btn:hover::before { 
-            opacity: 1; 
-            color: #4a0000;
-        }
+        .close-btn::before { content: "✕"; opacity: 0; transition: opacity 0.2s; }
+        .close-btn:hover::before { opacity: 1; color: #4a0000; }
 
         .theme-options { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 5px; }
         
         .theme-swatch {
-            width: 35px; height: 35px; border-radius: 50%; cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.6); transition: transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.8); transition: transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         .theme-swatch:hover { transform: scale(1.15); }
         
-        /* The Color Options */
-        .theme-midnight { background: linear-gradient(135deg, #0f172a, #1e1b4b); }
-        .theme-aurora { background: linear-gradient(135deg, #134e5e, #71b280); }
-        .theme-crimson { background: linear-gradient(135deg, #4b134f, #c94b4b); }
-        .theme-sunset { background: linear-gradient(135deg, #f12711, #f5af19); }
-        .theme-amethyst { background: linear-gradient(135deg, #41295a, #2f0743); }
-        .theme-toxic { background: linear-gradient(135deg, #0f2027, #2c5364); }
+        /* Desaturated / Pastel Themes */
+        .theme-slate { background: linear-gradient(135deg, #475569, #1e293b); }
+        .theme-sage { background: linear-gradient(135deg, #7fb09e, #3e5c54); }
+        .theme-rose { background: linear-gradient(135deg, #b56576, #6d3b47); }
+        .theme-peach { background: linear-gradient(135deg, #e29578, #8c5341); }
+        .theme-lavender { background: linear-gradient(135deg, #9d8189, #4a3b42); }
+        .theme-teal { background: linear-gradient(135deg, #6b9080, #364941); }
+        /* The New Snow/Ice White Theme */
+        .theme-snow { background: linear-gradient(135deg, #e2e8f0, #94a3b8); }
+
     </style>
 </head>
 <body>
@@ -176,16 +157,16 @@
 
     <div class="glass settings-modal" id="settingsMenu">
         <div class="close-btn" onclick="toggleSettings()"></div>
-        
         <h3 style="margin: 0;">Appearance</h3>
         <p>Select Liquid Theme</p>
         <div class="theme-options">
-            <div class="theme-swatch theme-midnight" onclick="changeTheme('#0f172a', '#1e1b4b', '#38bdf8', '#818cf8')" title="Midnight"></div>
-            <div class="theme-swatch theme-aurora" onclick="changeTheme('#134e5e', '#71b280', '#a8ff78', '#78ffd6')" title="Aurora"></div>
-            <div class="theme-swatch theme-crimson" onclick="changeTheme('#4b134f', '#c94b4b', '#ff9a9e', '#fecfef')" title="Crimson"></div>
-            <div class="theme-swatch theme-sunset" onclick="changeTheme('#f12711', '#f5af19', '#fffc00', '#ff7e5f')" title="Sunset"></div>
-            <div class="theme-swatch theme-amethyst" onclick="changeTheme('#41295a', '#2f0743', '#8A2387', '#E94057')" title="Amethyst"></div>
-            <div class="theme-swatch theme-toxic" onclick="changeTheme('#0f2027', '#2c5364', '#00ff87', '#60efff')" title="Toxic"></div>
+            <div class="theme-swatch theme-slate" onclick="changeTheme('#475569', '#1e293b', '#94a3b8', '#64748b')" title="Slate"></div>
+            <div class="theme-swatch theme-sage" onclick="changeTheme('#7fb09e', '#3e5c54', '#a8d5c4', '#5c8a7b')" title="Sage"></div>
+            <div class="theme-swatch theme-rose" onclick="changeTheme('#b56576', '#6d3b47', '#e5989b', '#9b5b68')" title="Rose"></div>
+            <div class="theme-swatch theme-peach" onclick="changeTheme('#e29578', '#8c5341', '#ffb5a7', '#b8735f')" title="Peach"></div>
+            <div class="theme-swatch theme-lavender" onclick="changeTheme('#9d8189', '#4a3b42', '#d8b4e2', '#7a6374')" title="Lavender"></div>
+            <div class="theme-swatch theme-teal" onclick="changeTheme('#6b9080', '#364941', '#a4c3b2', '#4b6b5d')" title="Muted Teal"></div>
+            <div class="theme-swatch theme-snow" onclick="changeTheme('#e2e8f0', '#94a3b8', '#ffffff', '#cbd5e1')" title="Snow White"></div>
         </div>
     </div>
 
@@ -197,7 +178,7 @@
                     <h3>Neon Drift</h3>
                     <p>Racing</p>
                 </div>
-                <div class="play-btn">Play</div>
+                <a href="drift-game.html" class="play-btn" style="text-decoration: none;">Play</a>
             </div>
         </div>
 
@@ -208,7 +189,7 @@
                     <h3>Cyber Rogue</h3>
                     <p>Action RPG</p>
                 </div>
-                <div class="play-btn">Play</div>
+                <a href="rogue-game.html" class="play-btn" style="text-decoration: none;">Play</a>
             </div>
         </div>
 
@@ -219,13 +200,12 @@
                     <h3>Astro Blitz</h3>
                     <p>Shooter</p>
                 </div>
-                <div class="play-btn">Play</div>
+                <a href="astro-game.html" class="play-btn" style="text-decoration: none;">Play</a>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. Settings & Theme Logic ---
         function toggleSettings() {
             document.getElementById('settingsMenu').classList.toggle('active');
         }
@@ -238,7 +218,6 @@
             root.style.setProperty('--orb-2', orb2);
         }
 
-        // --- 2. 3D Hover Physics ---
         const glassPanels = document.querySelectorAll('.glass:not(#settingsMenu)');
 
         glassPanels.forEach(panel => {
