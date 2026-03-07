@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>caseg</title>
+    <title>Interactive Liquid Glass Panels</title>
     <style>
-        /* 1. The Dark Checkerboard Background (Matches your image) */
+        /* 1. The Dark Checkerboard Background */
         body {
             margin: 0;
             display: flex;
@@ -21,7 +21,7 @@
             font-family: sans-serif;
         }
 
-        /* 2. Layout Container to arrange them exactly like the picture */
+        /* 2. Layout Container */
         .glass-layout {
             display: flex;
             gap: 40px;
@@ -34,28 +34,65 @@
             gap: 20px;
         }
 
-        /* 3. The Core Glass Physics */
+        /* 3. The Core Glass Physics & Interactivity */
         .glass {
-            background: rgba(255, 255, 255, 0.01); /* Almost invisible fill */
-            backdrop-filter: blur(8px); /* The optical distortion */
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05); /* Faint base border */
+            border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
+            
+            /* NEW: Setup for Hover & Shine */
+            cursor: pointer; /* Makes the mouse a pointing hand */
+            overflow: hidden; /* Keeps the shine locked inside the rounded corners */
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
+        }
+
+        /* NEW: The Hover Action (Grow & Glow) */
+        .glass:hover {
+            transform: scale(1.05) translateY(-5px); /* Grows by 5% and lifts up slightly */
+            filter: brightness(1.2); /* Makes the existing edge-lighting 20% brighter */
+        }
+
+        /* NEW: The Hidden Shine Element */
+        .glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%; /* Starts hidden way off to the left */
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                to right, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.4) 50%, /* The bright center of the shine */
+                rgba(255,255,255,0) 100%
+            );
+            transform: skewX(-25deg); /* Angles the shine like a glare */
+            z-index: 10;
+        }
+
+        /* NEW: Triggering the Shine Animation on Hover */
+        .glass:hover::before {
+            animation: shineSweep 0.6s ease-out forwards;
+        }
+
+        /* NEW: The Animation Keyframes */
+        @keyframes shineSweep {
+            100% { left: 200%; } /* Sweeps it across to the right side */
         }
 
         /* 4. Rectangular/Pill Shapes (Top Light Source) */
         .glass-rect {
-            /* The magic edge-lighting and glow */
             box-shadow: 
-                inset 0px 2px 3px rgba(255, 255, 255, 0.9), /* Intense top inner light */
-                inset 0px -1px 2px rgba(255, 255, 255, 0.1), /* Faint bottom reflection */
-                0px -4px 15px rgba(255, 255, 255, 0.4),      /* Glowing top outer aura */
-                0px 5px 15px rgba(0, 0, 0, 0.4);             /* Drop shadow for depth */
+                inset 0px 2px 3px rgba(255, 255, 255, 0.9), 
+                inset 0px -1px 2px rgba(255, 255, 255, 0.1), 
+                0px -4px 15px rgba(255, 255, 255, 0.4),      
+                0px 5px 15px rgba(0, 0, 0, 0.4);             
         }
 
         /* 5. Circular Shape (Top-Left Light Source) */
         .glass-circle {
-            /* Adjusted so the light hits the curve from the top-left */
             box-shadow: 
                 inset 3px 3px 5px rgba(255, 255, 255, 0.9), 
                 inset -1px -1px 3px rgba(255, 255, 255, 0.1), 
@@ -64,30 +101,11 @@
         }
 
         /* --- Specific Shape Dimensions --- */
-        
-        .shape-wide {
-            width: 240px;
-            height: 140px;
-            border-radius: 12px;
-        }
+        .shape-wide { width: 240px; height: 140px; border-radius: 12px; }
+        .shape-pill { width: 240px; height: 50px; border-radius: 25px; }
+        .shape-tall { width: 180px; height: 260px; border-radius: 12px; }
+        .shape-round { width: 260px; height: 260px; border-radius: 50%; }
 
-        .shape-pill {
-            width: 240px;
-            height: 50px;
-            border-radius: 25px; /* Creates the pill shape */
-        }
-
-        .shape-tall {
-            width: 180px;
-            height: 260px;
-            border-radius: 12px;
-        }
-
-        .shape-round {
-            width: 260px;
-            height: 260px;
-            border-radius: 50%; /* Creates the circle */
-        }
     </style>
 </head>
 <body>
