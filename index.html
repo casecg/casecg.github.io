@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clear Ice Glass Hub</title>
+    <title>Chirk's UBG</title>
     <style>
         :root {
             /* Default Theme: Muted Slate (Desaturated Midnight) */
@@ -67,8 +67,19 @@
             transform: skewX(-25deg) translateZ(0); z-index: 10;
         }
         .glass:hover::before { animation: shineSweep 0.8s ease-out forwards; }
-        @keyframes shineSweep { 100% { left: 200%; } }
-
+       @keyframes shineSweep { 100% { left: 200%; } }
+        
+<div class="glass game-card">
+    <div class="content">
+        <img src="csgo.png" alt="Case Clicker" class="game-img">
+        <div class="text-group">
+            <h3>CaseClicker</h3>
+            <p>Incremental</p>
+        </div>
+        <a href="play-caseclicker.html" class="play-btn" style="text-decoration: none;">Play</a>
+    </div>
+</div>
+        
         .game-card { width: 220px; height: 280px; border-radius: 24px; }
 
         .content {
