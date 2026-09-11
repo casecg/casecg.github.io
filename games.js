@@ -5,6 +5,6 @@ window.AERO_GAMES = [
   {
     title: 'GUST Browser',
     description: 'Proxy',
-    path: 'games/my-game/index.html'
+    path: 'games/gust.html/index.html'
   }
 ];
